@@ -1,38 +1,51 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { 
+  speakers, talks, bookings,
+  type Speaker, type InsertSpeaker,
+  type Talk, type InsertTalk,
+  type Booking, type InsertBooking
+} from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getSpeakers(): Promise<Speaker[]>;
+  getSpeaker(id: number): Promise<Speaker | undefined>;
+  createSpeaker(speaker: InsertSpeaker): Promise<Speaker>;
+  
+  getTalks(): Promise<Talk[]>;
+  createTalk(talk: InsertTalk): Promise<Talk>;
+  
+  createBooking(booking: InsertBooking): Promise<Booking>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getSpeakers(): Promise<Speaker[]> {
+    return await db.select().from(speakers);
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getSpeaker(id: number): Promise<Speaker | undefined> {
+    const [speaker] = await db.select().from(speakers).where(eq(speakers.id, id));
+    return speaker;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createSpeaker(speaker: InsertSpeaker): Promise<Speaker> {
+    const [newSpeaker] = await db.insert(speakers).values(speaker).returning();
+    return newSpeaker;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getTalks(): Promise<Talk[]> {
+    return await db.select().from(talks);
+  }
+
+  async createTalk(talk: InsertTalk): Promise<Talk> {
+    const [newTalk] = await db.insert(talks).values(talk).returning();
+    return newTalk;
+  }
+
+  async createBooking(booking: InsertBooking): Promise<Booking> {
+    const [newBooking] = await db.insert(bookings).values(booking).returning();
+    return newBooking;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
