@@ -1,0 +1,24 @@
+Build a complete, responsive frontend website called "EchoVox Arena" – a platform for creative speakers to showcase talks, workshops, and storytelling sessions. Use React with Vite for fast setup, Tailwind CSS for styling, Framer Motion for smooth animations, and React Router for navigation. Deploy-ready on Vercel/Replit. Make it modern, immersive UI/UX with dark/light mode toggle.
+
+Key pages/sections:
+1. **Hero Section**: Full-viewport animated banner with tagline "Amplify Your Voice, Ignite Minds", speaker headshot carousel (use placeholders), CTA buttons for "Book Speaker" and "Explore Talks".
+2. **Speakers Grid**: 6-card responsive grid with hover animations (lift, glow). Each card: photo, name, title, short bio, "View Profile" button. Data from a simple JSON array.
+3. **Talks Gallery**: Masonry grid of talk cards with video thumbnails (YouTube embeds), title, duration, "Watch Now" modal.
+4. **Booking Form**: Interactive form with steps (name, event type, date, message). Animate on submit with confetti (react-confetti). Use react-hook-form + Zod validation.
+5. **Footer**: Social links, newsletter signup, dark gradient.
+
+UI/UX Design Principles:
+- Color palette: Primary #6366F1 (indigo), Accent #EC4899 (pink), Neutral dark #0F0F23 / light #F8FAFC.
+- Typography: Inter font, bold headings with gradient text effects.
+- Animations: Parallax hero background, staggered card reveals, smooth page transitions.
+- Mobile-first: Hamburger menu, touch-friendly swipes for carousels.
+- Accessibility: ARIA labels, keyboard nav, high contrast mode.
+- Performance: Lazy-load images, optimized bundle < 500KB.
+
+Include:
+- Global state with Zustand for theme/speakers data.
+- Sample data: 6 unique speakers (e.g., "Aria Voss – Narrative Alchemist", "Jax Thorn – Futurist Poet").
+- PWA setup for offline caching.
+- Custom 404 page with fun animation.
+
+Generate full code structure in /src: App.jsx, components folder, utils, public assets. Make it portfolio-ready – add your GitHub/name in footer. Output deploy instructions for Replit/Vercel.
