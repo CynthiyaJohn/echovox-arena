@@ -36,5 +36,3 @@ Showcases modern frontend skills: animations, state management, forms, deploymen
 **Built by Sharon Cynthiya J** 🚀
 
 ***
-
-**Copy this to your GitHub repo README.md** after pushing from Replit! Replace "Your Preview URL" with your live Replit link.
